@@ -1,0 +1,28 @@
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+}
+
+label {
+  font-family: sans-serif;
+  justify-content: center;
+
+}
+
+textarea {
+  flex: 100%;
+  border: none;
+  border-bottom: solid 5px #545454;
+  margin-top: .5em;
+  margin-bottom: .5em;
+  height: 50px;
+  background-color: inherit;
+}
+
+button {
+  background-color:#4056A1;
+  color: #FFFFFF;
+  font-family: Bungee;
+}
