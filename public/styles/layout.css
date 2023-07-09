@@ -24,6 +24,14 @@ body {
 
 }
 
+main {
+  margin: auto;
+  text-align: center;
+  width: 90%;
+  position: relative;
+  background-color: inherit;
+}
+
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
