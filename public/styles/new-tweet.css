@@ -26,3 +26,11 @@ button {
   color: #FFFFFF;
   font-family: Bungee;
 }
+
+.counter {
+  color : #545454;
+}
+
+.char-limit {
+  color : red;
+}
