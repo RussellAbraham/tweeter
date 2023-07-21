@@ -1,6 +1,7 @@
 /* global $ */
 $(document).ready(function() {
-  $('form').on('input', 'textarea', function(event) {
+
+  $('textarea').on('input', function(event) {
     const max = 140;
     const charCount = $(this).val().length;
     const counting = max - charCount;
@@ -8,12 +9,15 @@ $(document).ready(function() {
     counter.text(counting);
     if (counting < 0) {
       counter.addClass('char-limit');
-      $(this).closest('form').submit(function(e) {
-        e.preventDefault();
-      });
+      // todo : prevent submission if caharacter limit is reached
+      //$(this).closest('form').submit(function(e) {
+      //  e.preventDefault();
+      //});
     } else {
       counter.removeClass('char-limit');
-      $(this).closest('form').unbind('submit');
+      // unbind form submission event causing default behavior of a form submission event
+      //$(this).closest('form').unbind('submit');
     }
   });
+
 });

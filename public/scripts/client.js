@@ -70,4 +70,20 @@ const createTweetElement = function (tweetData) {
 
 $(document).ready(function() {  
   renderTweets(data);
+
+  $('form').submit(function(event){
+
+    event.preventDefault();
+
+    $.ajax({
+      type : "POST",
+      url : "/tweets",
+      data : $(this).serialize(),
+      success : function(data){
+        console.log(this.data);
+      }
+    })
+
+  });
+
 })
