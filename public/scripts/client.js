@@ -4,34 +4,7 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-// Test / driver code (temporary). Eventually will get this from the server.
-// Fake data taken from initial-tweets.json
-const data = [
-  {
-    "user": {
-      "name": "Newton",
-      "avatars": "https://i.imgur.com/73hZDYK.png"
-      ,
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  },
-  {
-    "user": {
-      "name": "Descartes",
-      "avatars": "https://i.imgur.com/nlhLi3I.png",
-      "handle": "@rd" },
-    "content": {
-      "text": "Je pense , donc je suis"
-    },
-    "created_at": 1461113959088
-  }
-];
-
-const renderTweets = function(tweets) {
+const renderTweets = function (tweets) {
   const fragment = document.createDocumentFragment(); // Create a document fragment
   // Loop through tweets
   for (const tweet of tweets) {
@@ -46,7 +19,7 @@ const renderTweets = function(tweets) {
 };
 
 const createTweetElement = function (tweetData) {
-    const userTweets = `<header class="article-tweet-header">
+  const userTweets = `<header class="article-tweet-header">
         <div class="article-tweet-header-profile">
           <div class="tweet-header-icon">
             <img src= ${tweetData.user.avatars}">
@@ -65,25 +38,37 @@ const createTweetElement = function (tweetData) {
         </div>
       </footer>`
 
-    return userTweets;
+  return userTweets;
 };
 
-$(document).ready(function() {  
-  renderTweets(data);
+$(document).ready(function () {
 
-  $('form').submit(function(event){
+  $('form').submit(function (event) {
 
     event.preventDefault();
 
     $.ajax({
-      type : "POST",
-      url : "/tweets",
-      data : $(this).serialize(),
-      success : function(data){
-        console.log(this.data);
+      type: "POST",
+      url: "/tweets",
+      data: $(this).serialize(),
+      success: function (data) {
+        loadTweets();
       }
     })
 
   });
+
+
+  const loadTweets = function () {
+    $.getJSON({
+      url: "/tweets",
+      success: function (data) {
+        $("#tweets-container").empty();
+        renderTweets(data);
+      }
+    })
+  };
+
+  loadTweets();
 
 })
