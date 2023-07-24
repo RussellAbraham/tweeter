@@ -30,7 +30,7 @@ const createTweetElement = function (tweetData) {
         </header>
         <p class="tweet-text">${tweetData.content.text}</p>
       <footer class="article-tweet-footer">
-        <div class="tweet-post-date">${tweetData.created_at}</div>
+        <div class="tweet-post-date">${timeago.format(tweetData.created_at)}</div>
         <div class="tweet-footer-icons">
           <i class="fa-solid fa-flag"></i>
           <i class="fa-sharp fa-solid fa-retweet"></i>
@@ -46,6 +46,20 @@ $(document).ready(function () {
   $('form').submit(function (event) {
 
     event.preventDefault();
+
+    const tweetContent = $(this).find("textarea[name='text']").val();
+    // Validate tweet content
+    if (!tweetContent) {
+      alert("Tweet content is required");
+      // Do not proceed with form submission
+      return;
+    }
+
+    const maxTweetLength = 140;
+    if (tweetContent.length > maxTweetLength) {
+      alert("Tweet content is too long. Maximum " + maxTweetLength + " characters allowed.");
+      return; // Do not proceed with form submission
+    }
 
     $.ajax({
       type: "POST",
