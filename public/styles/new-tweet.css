@@ -108,7 +108,7 @@ article:hover {
   color: gold;
 }
 
-.new-tweet #new-tweet-err-message {
+.new-tweet #new-tweet-error-message {
   display: none;
   border: 1px solid;
   padding: 15px 10px 15px 50px;

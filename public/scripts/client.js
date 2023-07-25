@@ -4,6 +4,13 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+// Helper function to escape user-generated data to prevent XSS
+const escapeHTML = function (str) {
+  const div = document.createElement("div");
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+};
+
 const renderTweets = function (tweets) {
   const fragment = document.createDocumentFragment(); // Create a document fragment
   // Loop through tweets
@@ -22,21 +29,21 @@ const createTweetElement = function (tweetData) {
   const userTweets = `<header class="article-tweet-header">
         <div class="article-tweet-header-profile">
           <div class="tweet-header-icon">
-            <img src= ${tweetData.user.avatars}">
+            <img src="${escapeHTML(tweetData.user.avatars)}">
           </div>  
-          <p>${tweetData.user.name}</p>
+          <p>${escapeHTML(tweetData.user.name)}</p>
         </div>
-        <div class="tweet-handle">${tweetData.user.handle}</div>
+        <div class="tweet-handle">${escapeHTML(tweetData.user.handle)}</div>
         </header>
-        <p class="tweet-text">${tweetData.content.text}</p>
+        <p class="tweet-text">${escapeHTML(tweetData.content.text)}</p>
       <footer class="article-tweet-footer">
-        <div class="tweet-post-date">${timeago.format(tweetData.created_at)}</div>
+        <div class="tweet-post-date">${escapeHTML(timeago.format(tweetData.created_at))}</div>
         <div class="tweet-footer-icons">
           <i class="fa-solid fa-flag"></i>
           <i class="fa-sharp fa-solid fa-retweet"></i>
           <i class="fa-solid fa-heart"></i>
         </div>
-      </footer>`
+      </footer>`;
 
   return userTweets;
 };
@@ -47,28 +54,34 @@ $(document).ready(function () {
 
     event.preventDefault();
 
-    const tweetContent = $(this).find("textarea[name='text']").val();
-    // Validate tweet content
-    if (!tweetContent) {
-      alert("Tweet content is required");
-      // Do not proceed with form submission
-      return;
+    const tweetContent = $("#tweet-text").val();
+    const tweetError = $("#new-tweet-error-message");
+
+
+    if (tweetContent.length) {
+      tweetError.hide().text();
     }
 
     const maxTweetLength = 140;
     if (tweetContent.length > maxTweetLength) {
-      alert("Tweet content is too long. Maximum " + maxTweetLength + " characters allowed.");
+      //alert("Tweet content is too long. Maximum " + maxTweetLength + " characters allowed.");
+      tweetError.text("You've exceed the characer limit!").slideDown(500);
       return; // Do not proceed with form submission
     }
 
-    $.ajax({
-      type: "POST",
-      url: "/tweets",
-      data: $(this).serialize(),
-      success: function (data) {
-        loadTweets();
-      }
-    })
+    if (!tweetContent.length) {
+      tweetError.text('Your have no content to submit').slideDown(500);
+      return;
+    } else {
+      $.ajax({
+        type: "POST",
+        url: "/tweets",
+        data: $(this).serialize(),
+        success: function (data) {
+          loadTweets();
+        }
+      })
+    }
 
   });
 
