@@ -6,7 +6,10 @@
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -15,13 +18,10 @@ html {
  */
 
 body {
-  
   font-family: 'Source Sans 3', sans-serif;
   font-size: 24px;
-
   color: #545149;
   background-color: #f4f1ec;
-
 }
 
 main {
@@ -36,30 +36,25 @@ main {
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
 
-  /* changing flex box formatting for website above 1024px */
+/* changing flex box formatting for website above 1024px */
 
-@media only screen and (min-width: 1024px) {  
+@media only screen and (min-width: 1024px) {
 
-  nav {
-   font-size: 25px;
- }
+  body {
+    display: flex;
+    flex-direction: row;
+  }
 
- body {
-   display: flex;
-   flex-direction: row;
- }
+  .user-profile {
+    margin-left: 2em;
+    flex-basis: 30%;
+  }
 
- #header-user-profile {
-   margin-top: 10em;
-   margin-left: 3em;
-   flex-basis: 30%;
- }
-
-  .container {  
-   margin-top: 10em;
-   display: flex;
-   flex-direction: column;
-   flex-shrink: 5;
-   flex-basis: 59%;
- } 
-} 
+  .container {
+    margin-top: 6em;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 5;
+    flex-basis: 59%;
+  }
+}
