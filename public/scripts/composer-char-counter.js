@@ -1,6 +1,6 @@
 /* global $ */
 $(document).ready(function() {
-
+  // toggle class of the .counter element when character limit is reached
   $('textarea').on('input', function(event) {
     const max = 140;
     const charCount = $(this).val().length;
@@ -9,14 +9,8 @@ $(document).ready(function() {
     counter.text(counting);
     if (counting < 0) {
       counter.addClass('char-limit');
-      // todo : prevent submission if caharacter limit is reached
-      //$(this).closest('form').submit(function(e) {
-      //  e.preventDefault();
-      //});
     } else {
       counter.removeClass('char-limit');
-      // unbind form submission event causing default behavior of a form submission event
-      //$(this).closest('form').unbind('submit');
     }
   });
 

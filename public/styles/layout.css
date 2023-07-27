@@ -39,17 +39,14 @@ main {
 /* changing flex box formatting for website above 1024px */
 
 @media only screen and (min-width: 1024px) {
-
   body {
     display: flex;
     flex-direction: row;
   }
-
   .user-profile {
     margin-left: 2em;
     flex-basis: 30%;
   }
-
   .container {
     margin-top: 6em;
     display: flex;

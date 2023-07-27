@@ -5,13 +5,13 @@
  */
 
 // Helper function to escape user-generated data to prevent XSS
-const escapeHTML = function (str) {
+const escapeHTML = function(str) {
   const div = document.createElement("div");
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 };
 
-const renderTweets = function (tweets) {
+const renderTweets = function(tweets) {
   const fragment = document.createDocumentFragment(); // Create a document fragment
   // Loop through tweets
   for (const tweet of tweets) {
@@ -26,7 +26,7 @@ const renderTweets = function (tweets) {
 };
 
 // tweet template
-const createTweetElement = function (tweetData) {
+const createTweetElement = function(tweetData) {
   const userTweets = `
     <header class="article-tweet-header">
       <div class="article-tweet-header-profile">
@@ -89,7 +89,7 @@ $(document).ready(function () {
     });
   });
 
-  const loadTweets = function () {
+  const loadTweets = function() {
     // Use $.get for simplicity when just fetching JSON
     $.get("/tweets")
       .done(function (data) {
