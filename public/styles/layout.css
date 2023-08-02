@@ -43,6 +43,10 @@ main {
     display: flex;
     flex-direction: row;
   }
+  nav {
+    color : #FFFFFF;
+    background-color: #4056A1;
+  }
   .user-profile {
     margin-left: 2em;
     flex-basis: 30%;
