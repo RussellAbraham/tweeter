@@ -13,8 +13,9 @@ const escapeHTML = function(str) {
 
 const renderTweets = function(tweets) {
   const fragment = document.createDocumentFragment(); // Create a document fragment
-  // Loop through tweets
-  for (const tweet of tweets) {
+  // Loop through tweets in reverse order
+  for (let i = tweets.length - 1; i >= 0; i--) {
+    const tweet = tweets[i];
     const $tweet = createTweetElement(tweet); // Create a tweet element
     const article = document.createElement('article');
     article.classList.add('article');
@@ -22,8 +23,9 @@ const renderTweets = function(tweets) {
     // Append the tweet element to the document fragment
     fragment.appendChild(article);
   }
-  $('.tweets-container').append(fragment); // Append the fragment to the tweets container
+  $('.tweets-container').prepend(fragment); // Prepend the fragment to the tweets container
 };
+
 
 // tweet template
 const createTweetElement = function(tweetData) {
@@ -93,7 +95,7 @@ $(document).ready(function () {
     // Use $.get for simplicity when just fetching JSON
     $.get("/tweets")
       .done(function (data) {
-        $("#tweets-container").empty();
+        $(".tweets-container").empty();
         renderTweets(data);
       })
       .fail(function (error) {
